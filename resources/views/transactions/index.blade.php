@@ -36,7 +36,7 @@
         @forelse($transactions as $i => $t)
             <tr>
                 <td>{{ $transactions->firstItem() + $i }}</td>
-                <td>{{ \Carbon\Carbon::parse($t->created_at)->format('d/m/Y H:i') }}</td>
+                <td>{{ \Carbon\Carbon::parse($t->created_at)->timezone('Asia/Jakarta')->format('d/m/Y H:i') }}</td>
                 <td><strong>{{ $t->product_name }}</strong></td>
                 <td><span class='badge bg-info text-dark'>{{ $t->category_name }}</span></td>
                 <td>

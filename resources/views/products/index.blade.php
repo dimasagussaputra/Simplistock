@@ -31,7 +31,7 @@
                 <td><span class='badge bg-info text-dark'>{{ $p->category->name ?? '-' }}</span></td>
                 <td>Rp {{ number_format($p->price, 0, ',', '.') }}</td>
                 <td>
-                    <span class='badge {{ $p->stock <= 5 ? "bg-danger" : "bg-success" }}'>
+                    <span class='badge {{ $p->stock <= 3 ? "bg-danger" : "bg-success" }}'>
                         {{ $p->stock }} unit
                     </span>
                 </td>
