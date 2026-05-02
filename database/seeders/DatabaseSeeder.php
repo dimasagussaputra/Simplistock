@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder {
         User::create([
             'name'     => 'Administrator',
             'email'    => 'admin@simplistock.com',
-            'password' => bcrypt('password123'),
+            'password' => bcrypt('admin12345'),
             'role'     => 'admin',
         ]);
     }
