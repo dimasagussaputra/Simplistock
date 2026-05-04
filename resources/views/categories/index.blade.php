@@ -45,24 +45,42 @@
                             <button class='btn btn-sm btn-success'>Pulihkan</button>
                         </form>
                         {{-- HARD DELETE: Hapus permanen --}}
-                        <form method='POST' action='{{ route("categories.forceDelete", $cat->id) }}' class='d-inline'
-                              onsubmit='return confirm("Hapus permanen? Data tidak bisa dipulihkan!")'>
+                        <form method='POST' action='{{ route("categories.forceDelete", $cat->id) }}' class='d-inline'>
                             @csrf @method('DELETE')
-                            <button class='btn btn-sm btn-danger'>Hapus Permanen</button>
+                            <button type='button' class='btn btn-sm btn-danger'
+                                data-confirm='Kategori &ldquo;<strong>{{ $cat->name }}</strong>&rdquo; akan dihapus secara permanen dan <u>tidak dapat dipulihkan</u>.'
+                                data-confirm-title='Hapus Permanen'
+                                data-confirm-ok='Hapus Permanen'
+                                data-confirm-type='danger'
+                                data-confirm-icon='bi-trash3-fill'>Hapus Permanen</button>
                         </form>
                     @else
                         <a href='{{ route("categories.edit", $cat->id) }}' class='btn btn-sm btn-warning'>Ubah</a>
                         {{-- SOFT DELETE --}}
-                        <form method='POST' action='{{ route("categories.destroy", $cat->id) }}' class='d-inline'
-                              onsubmit='return confirm("Arsipkan kategori ini?")'>
+                        <form method='POST' action='{{ route("categories.destroy", $cat->id) }}' class='d-inline'>
                             @csrf @method('DELETE')
-                            <button class='btn btn-sm btn-secondary'>Arsipkan</button>
+                            <button type='button' class='btn btn-sm btn-secondary'
+                                data-confirm='Kategori &ldquo;<strong>{{ $cat->name }}</strong>&rdquo; akan diarsipkan. Anda bisa memulihkannya nanti.'
+                                data-confirm-title='Arsipkan Kategori'
+                                data-confirm-ok='Arsipkan'
+                                data-confirm-type='warning'
+                                data-confirm-icon='bi-archive-fill'>Arsipkan</button>
                         </form>
                     @endif
                 </td>
             </tr>
         @empty
-            <tr><td colspan='5' class='text-center py-3'>Tidak ada data kategori.</td></tr>
+            <tr>
+                <td colspan='5'>
+                    <div class='text-center py-5'>
+                        <i class='bi bi-tags text-muted' style='font-size:3rem;'></i>
+                        <p class='text-muted mt-2 mb-3'>Belum ada kategori yang ditemukan.</p>
+                        <a href='{{ route("categories.create") }}' class='btn btn-primary btn-sm'>
+                            <i class='bi bi-plus-circle me-1'></i>Tambah Kategori Pertama
+                        </a>
+                    </div>
+                </td>
+            </tr>
         @endforelse
         </tbody>
     </table>

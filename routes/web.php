@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StockTransactionController;
@@ -13,9 +14,7 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
 
     // Dashboard
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Routes PRODUK - semua user bisa akses (read), hanya admin yang bisa CUD
     Route::resource('products', ProductController::class);

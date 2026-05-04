@@ -25,12 +25,14 @@ class ProductController extends Controller {
 
     // CREATE: Form tambah produk
     public function create() {
+        if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         $categories = Category::all();
         return view('products.create', compact('categories'));
     }
 
     // STORE: Simpan produk baru
     public function store(Request $request) {
+        if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         $request->validate([
             'category_id' => 'required|exists:categories,id',
             'name'        => 'required|max:200',
@@ -45,12 +47,14 @@ class ProductController extends Controller {
 
     // EDIT: Form ubah produk
     public function edit(Product $product) {
+        if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         $categories = Category::all();
         return view('products.edit', compact('product', 'categories'));
     }
 
     // UPDATE: Simpan perubahan produk
     public function update(Request $request, Product $product) {
+        if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         $request->validate([
             'category_id' => 'required|exists:categories,id',
             'name'        => 'required|max:200',
@@ -65,6 +69,7 @@ class ProductController extends Controller {
 
     // SOFT DELETE: Arsipkan produk
     public function destroy(Product $product) {
+        if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         $product->delete();
         return redirect()->route('products.index')
                          ->with('success', 'Produk berhasil diarsipkan!');
@@ -72,6 +77,7 @@ class ProductController extends Controller {
 
     // RESTORE: Pulihkan produk dari soft delete
     public function restore($id) {
+        if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         Product::withTrashed()->findOrFail($id)->restore();
         return redirect()->route('products.index')
                          ->with('success', 'Produk berhasil dipulihkan!');
@@ -79,6 +85,7 @@ class ProductController extends Controller {
 
     // HARD DELETE: Hapus produk secara permanen
     public function forceDelete($id) {
+        if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         Product::withTrashed()->findOrFail($id)->forceDelete();
         return redirect()->route('products.index')
                          ->with('success', 'Produk berhasil dihapus permanen!');

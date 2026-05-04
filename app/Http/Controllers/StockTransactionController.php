@@ -83,6 +83,7 @@ class StockTransactionController extends Controller {
 
     // HARD DELETE: Hapus transaksi
     public function destroy($id) {
+        if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         StockTransaction::findOrFail($id)->delete();
         return redirect()->route('transactions.index')
                          ->with('success', 'Transaksi berhasil dihapus!');

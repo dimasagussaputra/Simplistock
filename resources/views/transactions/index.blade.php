@@ -52,16 +52,30 @@
                 <td>{{ $t->note ?? '-' }}</td>
                 <td>
                     @if(auth()->user()->isAdmin())
-                    <form method='POST' action='{{ route("transactions.destroy", $t->id) }}' class='d-inline'
-                          onsubmit='return confirm("Hapus transaksi ini?")'>
+                    <form method='POST' action='{{ route("transactions.destroy", $t->id) }}' class='d-inline'>
                         @csrf @method('DELETE')
-                        <button class='btn btn-sm btn-danger'>Hapus</button>
+                        <button type='button' class='btn btn-sm btn-danger'
+                            data-confirm='Transaksi pada produk &ldquo;<strong>{{ $t->product_name }}</strong>&rdquo; akan dihapus secara permanen.'
+                            data-confirm-title='Hapus Transaksi'
+                            data-confirm-ok='Hapus'
+                            data-confirm-type='danger'
+                            data-confirm-icon='bi-trash3-fill'>Hapus</button>
                     </form>
                     @endif
                 </td>
             </tr>
         @empty
-            <tr><td colspan='10' class='text-center py-3'>Belum ada transaksi.</td></tr>
+            <tr>
+                <td colspan='10'>
+                    <div class='text-center py-5'>
+                        <i class='bi bi-arrow-left-right text-muted' style='font-size:3rem;'></i>
+                        <p class='text-muted mt-2 mb-3'>Belum ada transaksi yang tercatat.</p>
+                        <a href='{{ route("transactions.create") }}' class='btn btn-primary btn-sm'>
+                            <i class='bi bi-plus-circle me-1'></i>Catat Transaksi Pertama
+                        </a>
+                    </div>
+                </td>
+            </tr>
         @endforelse
         </tbody>
     </table>

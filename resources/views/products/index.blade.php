@@ -49,24 +49,44 @@
                             @csrf @method('PATCH')
                             <button class='btn btn-sm btn-success'>Pulihkan</button>
                         </form>
-                        <form method='POST' action='{{ route("products.forceDelete", $p->id) }}' class='d-inline'
-                              onsubmit='return confirm("Hapus permanen?")'>
+                        <form method='POST' action='{{ route("products.forceDelete", $p->id) }}' class='d-inline'>
                             @csrf @method('DELETE')
-                            <button class='btn btn-sm btn-danger'>Hapus Permanen</button>
+                            <button type='button' class='btn btn-sm btn-danger'
+                                data-confirm='Produk &ldquo;<strong>{{ $p->name }}</strong>&rdquo; akan dihapus secara permanen dan <u>tidak dapat dipulihkan</u>.'
+                                data-confirm-title='Hapus Permanen'
+                                data-confirm-ok='Hapus Permanen'
+                                data-confirm-type='danger'
+                                data-confirm-icon='bi-trash3-fill'>Hapus Permanen</button>
                         </form>
                     @else
                         <a href='{{ route("products.edit", $p->id) }}' class='btn btn-sm btn-warning'>Ubah</a>
-                        <form method='POST' action='{{ route("products.destroy", $p->id) }}' class='d-inline'
-                              onsubmit='return confirm("Arsipkan produk ini?")'>
+                        <form method='POST' action='{{ route("products.destroy", $p->id) }}' class='d-inline'>
                             @csrf @method('DELETE')
-                            <button class='btn btn-sm btn-secondary'>Arsipkan</button>
+                            <button type='button' class='btn btn-sm btn-secondary'
+                                data-confirm='Produk &ldquo;<strong>{{ $p->name }}</strong>&rdquo; akan diarsipkan. Anda bisa memulihkannya nanti.'
+                                data-confirm-title='Arsipkan Produk'
+                                data-confirm-ok='Arsipkan'
+                                data-confirm-type='warning'
+                                data-confirm-icon='bi-archive-fill'>Arsipkan</button>
                         </form>
                     @endif
                     @endif
                 </td>
             </tr>
         @empty
-            <tr><td colspan='7' class='text-center py-3'>Tidak ada data produk.</td></tr>
+            <tr>
+                <td colspan='7'>
+                    <div class='text-center py-5'>
+                        <i class='bi bi-box-seam text-muted' style='font-size:3rem;'></i>
+                        <p class='text-muted mt-2 mb-3'>Belum ada produk yang ditemukan.</p>
+                        @if(auth()->user()->isAdmin())
+                        <a href='{{ route("products.create") }}' class='btn btn-primary btn-sm'>
+                            <i class='bi bi-plus-circle me-1'></i>Tambah Produk Pertama
+                        </a>
+                        @endif
+                    </div>
+                </td>
+            </tr>
         @endforelse
         </tbody>
     </table>
