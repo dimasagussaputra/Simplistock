@@ -58,6 +58,8 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
+## Kelompok 24 Praktikum SBD
+
 ## Cara Running
 
 Terminal 1 (cmd):
@@ -74,13 +76,19 @@ php artisan serve
 <img width="1354" height="675" alt="image" src="https://github.com/user-attachments/assets/92f15655-7529-4422-93b6-4e60dfe8d6b5" />
 
 
-<img width="1355" height="677" alt="image" src="https://github.com/user-attachments/assets/2ff9eaf1-4d2a-4043-aca3-440684d16d86" />
+<img width="1354" height="677" alt="image" src="https://github.com/user-attachments/assets/356d696a-8867-40d7-bf84-5ba559b2fc86" />
 
 
-<img width="1355" height="680" alt="image" src="https://github.com/user-attachments/assets/434ce1ff-b397-4a5f-9363-989ad79c6547" />
+<img width="1359" height="680" alt="image" src="https://github.com/user-attachments/assets/98c1ca89-b17f-4a66-ba7f-801f90463d62" />
 
 
-<img width="1352" height="674" alt="image" src="https://github.com/user-attachments/assets/202e546c-9068-4871-be4a-5c66a883c615" />
+<img width="1359" height="678" alt="image" src="https://github.com/user-attachments/assets/87a8482a-b0cc-49aa-8240-81150dd3a806" />
 
 
-<img width="1352" height="675" alt="image" src="https://github.com/user-attachments/assets/301caf3e-ea5b-4716-996a-066cad139bc9" />
+<img width="1358" height="677" alt="image" src="https://github.com/user-attachments/assets/2bedad4c-71e5-455d-85df-7b414ee73620" />
+
+
+<img width="1354" height="679" alt="image" src="https://github.com/user-attachments/assets/49767db0-e6ac-49b5-9e14-e0da70894329" />
+
+
+<img width="1353" height="678" alt="image" src="https://github.com/user-attachments/assets/ed2ece6e-5e6e-4497-9a57-d28ee3212903" />
