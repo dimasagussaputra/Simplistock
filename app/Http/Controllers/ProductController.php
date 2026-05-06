@@ -9,7 +9,7 @@ class ProductController extends Controller {
 
     // READ: Tampilkan semua produk dengan fitur pencarian
     public function index(Request $request) {
-        $query = Product::with('category')->withTrashed();
+        $query = Product::with('category');
         // FITUR PENCARIAN
         if ($request->search) {
             $query->where(function($q) use ($request) {
@@ -18,6 +18,11 @@ class ProductController extends Controller {
                       $q2->where('name', 'like', '%' . $request->search . '%');
                   });
             });
+        }
+
+        // FILTER STOK RENDAH
+        if ($request->filter == 'low_stock') {
+            $query->where('stock', '<=', 3);
         }
         $products = $query->latest()->paginate(10);
         return view('products.index', compact('products'));
@@ -63,23 +68,26 @@ class ProductController extends Controller {
             'stock'       => 'required|integer|min:0',
         ]);
         $product->update($request->all());
-        return redirect()->route('products.index')
+        
+        $redirect = $request->from == 'dashboard' ? route('dashboard') : route('products.index');
+        
+        return redirect($redirect)
                          ->with('success', 'Produk berhasil diubah!');
     }
 
-    // SOFT DELETE: Arsipkan produk
+    // SOFT DELETE: Hapus produk
     public function destroy(Product $product) {
         if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         $product->delete();
         return redirect()->route('products.index')
-                         ->with('success', 'Produk berhasil diarsipkan!');
+                         ->with('success', 'Produk berhasil dihapus!');
     }
 
     // RESTORE: Pulihkan produk dari soft delete
     public function restore($id) {
         if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         Product::withTrashed()->findOrFail($id)->restore();
-        return redirect()->route('products.index')
+        return redirect()->back()
                          ->with('success', 'Produk berhasil dipulihkan!');
     }
 
@@ -87,7 +95,7 @@ class ProductController extends Controller {
     public function forceDelete($id) {
         if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');
         Product::withTrashed()->findOrFail($id)->forceDelete();
-        return redirect()->route('products.index')
+        return redirect()->back()
                          ->with('success', 'Produk berhasil dihapus permanen!');
     }
 }

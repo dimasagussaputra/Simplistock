@@ -8,7 +8,7 @@ class CategoryController extends Controller {
 
     // READ: Tampilkan semua kategori (termasuk filter pencarian)
     public function index(Request $request) {
-        $query = Category::withTrashed(); // Tampilkan juga yang soft deleted
+        $query = Category::query();
         if ($request->search) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
@@ -52,20 +52,20 @@ class CategoryController extends Controller {
     public function destroy(Category $category) {
         $category->delete(); // Soft delete: mengisi kolom deleted_at
         return redirect()->route('categories.index')
-                         ->with('success', 'Kategori berhasil diarsipkan (soft delete)!');
+                         ->with('success', 'Kategori berhasil dihapus!');
     }
 
     // RESTORE: Pulihkan kategori dari soft delete
     public function restore($id) {
         Category::withTrashed()->findOrFail($id)->restore();
-        return redirect()->route('categories.index')
+        return redirect()->back()
                          ->with('success', 'Kategori berhasil dipulihkan!');
     }
 
     // HARD DELETE: Hapus kategori secara permanen
     public function forceDelete($id) {
         Category::withTrashed()->findOrFail($id)->forceDelete();
-        return redirect()->route('categories.index')
+        return redirect()->back()
                          ->with('success', 'Kategori berhasil dihapus permanen!');
     }
 }

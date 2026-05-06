@@ -19,13 +19,13 @@
 </form>
 
 <div class='card'><div class='card-body p-0'>
-    <table class='table table-hover mb-0'>
+    <table class='table table-hover table-bordered mb-0'>
         <thead class='table-primary'>
-            <tr><th>#</th><th>Nama Produk</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Status</th><th>Aksi</th></tr>
+            <tr><th>No</th><th>Nama Produk</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Status</th><th>Aksi</th></tr>
         </thead>
         <tbody>
         @forelse($products as $i => $p)
-            <tr class='{{ $p->deleted_at ? "table-secondary" : "" }}'>
+            <tr>
                 <td>{{ $products->firstItem() + $i }}</td>
                 <td>{{ $p->name }}</td>
                 <td><span class='badge bg-info text-dark'>{{ $p->category->name ?? '-' }}</span></td>
@@ -36,40 +36,20 @@
                     </span>
                 </td>
                 <td>
-                    @if($p->deleted_at)
-                        <span class='badge bg-secondary'>Diarsipkan</span>
-                    @else
-                        <span class='badge bg-success'>Aktif</span>
-                    @endif
+                    <span class='badge bg-success'>Aktif</span>
                 </td>
                 <td>
                     @if(auth()->user()->isAdmin())
-                    @if($p->deleted_at)
-                        <form method='POST' action='{{ route("products.restore", $p->id) }}' class='d-inline'>
-                            @csrf @method('PATCH')
-                            <button class='btn btn-sm btn-success'>Pulihkan</button>
-                        </form>
-                        <form method='POST' action='{{ route("products.forceDelete", $p->id) }}' class='d-inline'>
-                            @csrf @method('DELETE')
-                            <button type='button' class='btn btn-sm btn-danger'
-                                data-confirm='Produk &ldquo;<strong>{{ $p->name }}</strong>&rdquo; akan dihapus secara permanen dan <u>tidak dapat dipulihkan</u>.'
-                                data-confirm-title='Hapus Permanen'
-                                data-confirm-ok='Hapus Permanen'
-                                data-confirm-type='danger'
-                                data-confirm-icon='bi-trash3-fill'>Hapus Permanen</button>
-                        </form>
-                    @else
-                        <a href='{{ route("products.edit", $p->id) }}' class='btn btn-sm btn-warning'>Ubah</a>
+                        <a href='{{ route("products.edit", $p->id) }}' class='btn btn-sm btn-warning'>Edit</a>
                         <form method='POST' action='{{ route("products.destroy", $p->id) }}' class='d-inline'>
                             @csrf @method('DELETE')
-                            <button type='button' class='btn btn-sm btn-secondary'
-                                data-confirm='Produk &ldquo;<strong>{{ $p->name }}</strong>&rdquo; akan diarsipkan. Anda bisa memulihkannya nanti.'
-                                data-confirm-title='Arsipkan Produk'
-                                data-confirm-ok='Arsipkan'
-                                data-confirm-type='warning'
-                                data-confirm-icon='bi-archive-fill'>Arsipkan</button>
+                            <button type='button' class='btn btn-sm btn-danger'
+                                data-confirm='Produk &ldquo;<strong>{{ $p->name }}</strong>&rdquo; akan dihapus. Anda bisa memulihkannya di Data Terhapus.'
+                                data-confirm-title='Hapus Produk'
+                                data-confirm-ok='Hapus'
+                                data-confirm-type='danger'
+                                data-confirm-icon='bi-trash3-fill'>Hapus</button>
                         </form>
-                    @endif
                     @endif
                 </td>
             </tr>
@@ -91,5 +71,5 @@
         </tbody>
     </table>
 </div></div>
-{{ $products->links() }}
+{{ $products->links('vendor.pagination.modern') }}
 @endsection

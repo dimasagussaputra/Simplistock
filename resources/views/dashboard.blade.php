@@ -56,7 +56,7 @@
                     <strong>Stok Hampir Habis (≤ 3)</strong>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-sm mb-0">
+                    <table class="table table-sm table-bordered mb-0">
                         <thead class="table-light">
                             <tr>
                                 <th>Produk</th>
@@ -75,7 +75,7 @@
                                     </td>
                                     <td>
                                         @if(auth()->user()->isAdmin())
-                                        <a href="{{ route('products.edit', $item->id) }}"
+                                        <a href="{{ route('products.edit', $item->id) }}?from=dashboard"
                                            class="btn btn-xs btn-outline-warning py-0 px-2" style="font-size:0.75rem;">
                                             <i class="bi bi-pencil"></i>
                                         </a>
@@ -93,6 +93,13 @@
                         </tbody>
                     </table>
                 </div>
+                @if($lowStock->count() > 0)
+                <div class="card-footer text-end p-2">
+                    <a href="{{ route('products.index') }}" class="btn btn-sm btn-outline-danger">
+                        Lihat Semua <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
 
@@ -104,7 +111,7 @@
                     <strong>Transaksi Terbaru</strong>
                 </div>
                 <div class="card-body p-0">
-                    <table class="table table-sm mb-0">
+                    <table class="table table-sm table-bordered mb-0">
                         <thead class="table-light">
                             <tr>
                                 <th>Produk</th>

@@ -11,7 +11,11 @@
     <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css' rel='stylesheet'>
 
     <style>
-        body { background-color: #f8f9fa; font-family: Arial, sans-serif; }
+        body { 
+            background-color: #f8f9fa; 
+            font-family: Arial, sans-serif; 
+            padding-top: 80px; /* Ruang untuk header fixed agar konten tidak tertutup */
+        }
 
         .navbar-brand {
             font-weight: bold;
@@ -73,7 +77,7 @@
         }
 
         .auto-alert.showing {
-            top: 20px;
+            top: 85px; /* Muncul di bawah header fixed */
         }
 
         /* =========================
@@ -179,12 +183,66 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(230,126,34,0.4);
         }
+        /* =========================
+           MODERN PAGINATION
+        ========================== */
+        .pagination-modern {
+            margin-bottom: 50px; /* Memberikan ruang di bawah agar tidak terlalu mepet */
+        }
+
+        .pagination-modern .pagination {
+            margin-bottom: 0;
+            display: flex;
+            gap: 8px;
+        }
+
+        .pagination-modern .page-item .page-link {
+            border: none;
+            background: #fff;
+            color: #555;
+            padding: 10px 20px;
+            border-radius: 12px !important;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 45px;
+        }
+
+        .pagination-modern .page-item.active .page-link {
+            background: linear-gradient(135deg, #4834d4, #686de0);
+            color: #fff !important;
+            box-shadow: 0 10px 20px rgba(72, 52, 212, 0.25);
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .pagination-modern .page-item:not(.active):not(.disabled) .page-link:hover {
+            background-color: #fff;
+            color: #4834d4;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .pagination-modern .page-item.disabled .page-link {
+            background: #f8f9fa;
+            color: #bbb;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+
+        .pagination-info {
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
     </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
-<nav class='navbar navbar-expand-lg navbar-dark bg-primary position-relative'>
+<nav class='navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm'>
     <div class='container-fluid'>
 
         <!-- LOGO -->
@@ -226,6 +284,12 @@
                         <i class='bi bi-tags'></i> Kategori
                     </a>
                 </li>
+                <li class='nav-item'>
+                    <a class='nav-link {{ request()->routeIs("trash.*") ? "active" : "" }}'
+                       href='{{ route("trash.index") }}'>
+                        <i class='bi bi-trash3'></i> Data Terhapus
+                    </a>
+                </li>
                 @endif
             </ul>
 
@@ -243,7 +307,12 @@
                         <li>
                             <form method='POST' action='{{ route("logout") }}'>
                                 @csrf
-                                <button type='submit' class='dropdown-item text-danger'>
+                                <button type='button' class='dropdown-item text-danger'
+                                    data-confirm='Anda akan keluar dari aplikasi Simplistock. Sesi Anda akan dihentikan.'
+                                    data-confirm-title='Konfirmasi Keluar'
+                                    data-confirm-ok='Logout Sekarang'
+                                    data-confirm-type='warning'
+                                    data-confirm-icon='bi-box-arrow-right'>
                                     <i class='bi bi-box-arrow-right'></i> Logout
                                 </button>
                             </form>
@@ -392,6 +461,26 @@ document.addEventListener("DOMContentLoaded", function () {
     // Reset saat modal ditutup
     document.getElementById('confirmModal').addEventListener('hidden.bs.modal', function () {
         pendingForm = null;
+    });
+
+    /* ---- Auto-select numeric input on focus ---- */
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('focus', function() {
+            this.select();
+        });
+    });
+
+    /* ---- Disable Browser Back Button (Lebih Agresif) ---- */
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+        window.history.pushState(null, null, window.location.href);
+    };
+
+    /* ---- Force Reload on Back (Anti-Cache) ---- */
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
     });
 });
 </script>

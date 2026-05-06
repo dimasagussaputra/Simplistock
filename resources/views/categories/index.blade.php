@@ -18,55 +18,33 @@
 
 <div class='card'>
     <div class='card-body p-0'>
-    <table class='table table-hover mb-0'>
+    <table class='table table-hover table-bordered mb-0'>
         <thead class='table-primary'>
             <tr>
-                <th>#</th><th>Nama</th><th>Deskripsi</th><th>Status</th><th>Aksi</th>
+                <th>No</th><th>Nama</th><th>Deskripsi</th><th>Status</th><th>Aksi</th>
             </tr>
         </thead>
         <tbody>
         @forelse($categories as $i => $cat)
-            <tr class='{{ $cat->deleted_at ? "table-secondary" : "" }}'>
+            <tr>
                 <td>{{ $categories->firstItem() + $i }}</td>
                 <td>{{ $cat->name }}</td>
                 <td>{{ $cat->description ?? '-' }}</td>
                 <td>
-                    @if($cat->deleted_at)
-                        <span class='badge bg-secondary'>Diarsipkan</span>
-                    @else
-                        <span class='badge bg-success'>Aktif</span>
-                    @endif
+                    <span class='badge bg-success'>Aktif</span>
                 </td>
                 <td>
-                    @if($cat->deleted_at)
-                        {{-- RESTORE: Pulihkan dari soft delete --}}
-                        <form method='POST' action='{{ route("categories.restore", $cat->id) }}' class='d-inline'>
-                            @csrf @method('PATCH')
-                            <button class='btn btn-sm btn-success'>Pulihkan</button>
-                        </form>
-                        {{-- HARD DELETE: Hapus permanen --}}
-                        <form method='POST' action='{{ route("categories.forceDelete", $cat->id) }}' class='d-inline'>
-                            @csrf @method('DELETE')
-                            <button type='button' class='btn btn-sm btn-danger'
-                                data-confirm='Kategori &ldquo;<strong>{{ $cat->name }}</strong>&rdquo; akan dihapus secara permanen dan <u>tidak dapat dipulihkan</u>.'
-                                data-confirm-title='Hapus Permanen'
-                                data-confirm-ok='Hapus Permanen'
-                                data-confirm-type='danger'
-                                data-confirm-icon='bi-trash3-fill'>Hapus Permanen</button>
-                        </form>
-                    @else
-                        <a href='{{ route("categories.edit", $cat->id) }}' class='btn btn-sm btn-warning'>Ubah</a>
-                        {{-- SOFT DELETE --}}
-                        <form method='POST' action='{{ route("categories.destroy", $cat->id) }}' class='d-inline'>
-                            @csrf @method('DELETE')
-                            <button type='button' class='btn btn-sm btn-secondary'
-                                data-confirm='Kategori &ldquo;<strong>{{ $cat->name }}</strong>&rdquo; akan diarsipkan. Anda bisa memulihkannya nanti.'
-                                data-confirm-title='Arsipkan Kategori'
-                                data-confirm-ok='Arsipkan'
-                                data-confirm-type='warning'
-                                data-confirm-icon='bi-archive-fill'>Arsipkan</button>
-                        </form>
-                    @endif
+                    <a href='{{ route("categories.edit", $cat->id) }}' class='btn btn-sm btn-warning'>Edit</a>
+                    {{-- SOFT DELETE --}}
+                    <form method='POST' action='{{ route("categories.destroy", $cat->id) }}' class='d-inline'>
+                        @csrf @method('DELETE')
+                        <button type='button' class='btn btn-sm btn-danger'
+                            data-confirm='Kategori &ldquo;<strong>{{ $cat->name }}</strong>&rdquo; akan dihapus. Anda bisa memulihkannya di Data Terhapus.'
+                            data-confirm-title='Hapus Kategori'
+                            data-confirm-ok='Hapus'
+                            data-confirm-type='danger'
+                            data-confirm-icon='bi-trash3-fill'>Hapus</button>
+                    </form>
                 </td>
             </tr>
         @empty
@@ -86,5 +64,5 @@
     </table>
     </div>
 </div>
-{{ $categories->links() }}
+{{ $categories->links('vendor.pagination.modern') }}
 @endsection

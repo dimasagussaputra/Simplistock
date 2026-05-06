@@ -5,7 +5,6 @@
 {{-- BREADCRUMB --}}
 <nav aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('categories.index') }}">Kategori</a></li>
         <li class="breadcrumb-item active">Edit: {{ $category->name }}</li>
     </ol>

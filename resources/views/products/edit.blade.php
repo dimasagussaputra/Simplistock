@@ -5,7 +5,6 @@
 {{-- BREADCRUMB --}}
 <nav aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Produk</a></li>
         <li class="breadcrumb-item active">Edit: {{ $product->name }}</li>
     </ol>
@@ -16,6 +15,7 @@
 <div class='card mt-3'><div class='card-body'>
     <form method='POST' action='{{ route("products.update", $product->id) }}' id='productForm'>
         @csrf @method('PUT')
+        <input type="hidden" name="from" value="{{ request('from') }}">
         <div class='row'>
             <div class='col-md-6 mb-3'>
                 <label class='form-label fw-bold'>Nama Produk *</label>
@@ -73,7 +73,8 @@
             <button type='submit' class='btn btn-warning' id='submitBtn'>
                 <i class='bi bi-save me-1'></i>Update
             </button>
-            <a href='{{ route("products.index") }}' class='btn btn-secondary' id='cancelBtn'>
+            <a href='{{ request("from") == "dashboard" ? route("dashboard") : route("products.index") }}' 
+               class='btn btn-secondary' id='cancelBtn'>
                 <i class='bi bi-x-circle me-1'></i>Batal
             </a>
         </div>

@@ -5,7 +5,6 @@
 {{-- BREADCRUMB --}}
 <nav aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Produk</a></li>
         <li class="breadcrumb-item active">Tambah Produk</li>
     </ol>
@@ -45,7 +44,7 @@
                 <label class='form-label fw-bold'>Harga (Rp) *</label>
                 <input type='number' name='price' id='price'
                        class='form-control @error("price") is-invalid @enderror'
-                       value='{{ old("price", 0) }}' min='0' required>
+                       value='{{ old("price") }}' placeholder='0' min='0' required>
                 @error('price')
                     <div class='invalid-feedback'>{{ $message }}</div>
                 @enderror
@@ -54,7 +53,7 @@
                 <label class='form-label fw-bold'>Stok Awal *</label>
                 <input type='number' name='stock' id='stock'
                        class='form-control @error("stock") is-invalid @enderror'
-                       value='{{ old("stock", 0) }}' min='0' required>
+                       value='{{ old("stock") }}' placeholder='0' min='0' required>
                 @error('stock')
                     <div class='invalid-feedback'>{{ $message }}</div>
                 @enderror

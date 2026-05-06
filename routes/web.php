@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StockTransactionController;
+use App\Http\Controllers\TrashController;
 
 // Redirect root ke dashboard
 Route::get('/', function () {
@@ -24,8 +25,9 @@ Route::middleware(['auth'])->group(function () {
     // Routes TRANSAKSI
     Route::resource('transactions', StockTransactionController::class)->only(['index', 'create', 'store', 'destroy']);
 
-    // Routes KATEGORI - hanya admin
+    // Routes KATEGORI & TRASH - hanya admin
     Route::middleware(['admin'])->group(function () {
+        Route::get('/trash', [TrashController::class, 'index'])->name('trash.index');
         Route::resource('categories', CategoryController::class)->except(['show']);
         Route::patch('categories/{id}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
         Route::delete('categories/{id}/force-delete', [CategoryController::class, 'forceDelete'])->name('categories.forceDelete');

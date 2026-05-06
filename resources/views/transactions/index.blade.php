@@ -17,10 +17,10 @@
 </form>
 
 <div class='card'><div class='card-body p-0'>
-    <table class='table table-hover mb-0'>
+    <table class='table table-hover table-bordered mb-0'>
         <thead class='table-primary'>
             <tr>
-                <th>#</th>
+                <th>No</th>
                 <th>Tanggal</th>
                 <th>Produk</th>
                 <th>Kategori</th>
@@ -80,5 +80,5 @@
         </tbody>
     </table>
 </div></div>
-{{ $transactions->links() }}
+{{ $transactions->links('vendor.pagination.modern') }}
 @endsection

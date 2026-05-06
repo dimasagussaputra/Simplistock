@@ -17,6 +17,7 @@ class DashboardController extends Controller
         $lowStock = Product::where('stock', '<=', 3)
                            ->whereNull('deleted_at')
                            ->orderBy('stock')
+                           ->take(5)
                            ->get();
 
         // 5 transaksi terbaru
