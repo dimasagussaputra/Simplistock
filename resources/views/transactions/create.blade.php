@@ -120,8 +120,16 @@ document.querySelectorAll('#transactionForm input, #transactionForm select, #tra
     .forEach(el => el.addEventListener('change', () => formDirty = true));
 document.getElementById('transactionForm').addEventListener('submit', () => formDirty = false);
 document.getElementById('cancelBtn').addEventListener('click', function(e) {
-    if (formDirty && !confirm('Data yang Anda isi belum disimpan. Yakin ingin keluar?')) {
+    if (formDirty) {
         e.preventDefault();
+        window.showConfirm({
+            title: 'Batal Tambah',
+            message: 'Data yang Anda isi belum disimpan. Yakin ingin keluar?',
+            okLabel: 'Keluar',
+            type: 'warning',
+            icon: 'bi-exclamation-triangle-fill',
+            url: this.getAttribute('href')
+        });
     }
 });
 </script>

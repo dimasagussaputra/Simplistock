@@ -16,7 +16,7 @@
     <a href='{{ route("transactions.index") }}' class='btn btn-outline-danger'>Reset</a>
 </form>
 
-<div class='card'><div class='card-body p-0'>
+<div class='card'><div class='card-body p-0 table-responsive'>
     <table class='table table-hover table-bordered mb-0'>
         <thead class='table-primary'>
             <tr>

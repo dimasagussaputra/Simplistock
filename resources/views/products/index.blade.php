@@ -18,7 +18,7 @@
     <a href='{{ route("products.index") }}' class='btn btn-outline-danger'>Reset</a>
 </form>
 
-<div class='card'><div class='card-body p-0'>
+<div class='card'><div class='card-body p-0 table-responsive'>
     <table class='table table-hover table-bordered mb-0'>
         <thead class='table-primary'>
             <tr><th>No</th><th>Nama Produk</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Status</th><th>Aksi</th></tr>

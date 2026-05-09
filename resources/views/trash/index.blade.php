@@ -18,7 +18,7 @@
   <!-- TAB PRODUK -->
   <div class="tab-pane fade show active" id="product" role="tabpanel" aria-labelledby="product-tab">
     <div class='card'>
-        <div class='card-body p-0'>
+        <div class='card-body p-0 table-responsive'>
         <table class='table table-hover table-bordered mb-0'>
             <thead class='table-danger'>
                 <tr><th>No</th><th>Nama Produk</th><th>Kategori</th><th>Harga</th><th>Aksi</th></tr>
@@ -65,7 +65,7 @@
   <!-- TAB KATEGORI -->
   <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">
     <div class='card'>
-        <div class='card-body p-0'>
+        <div class='card-body p-0 table-responsive'>
         <table class='table table-hover table-bordered mb-0'>
             <thead class='table-danger'>
                 <tr>

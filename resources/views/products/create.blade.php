@@ -94,8 +94,16 @@ document.querySelectorAll('#productForm input, #productForm select, #productForm
     .forEach(el => el.addEventListener('input', () => formDirty = true));
 document.getElementById('productForm').addEventListener('submit', () => formDirty = false);
 document.getElementById('cancelBtn').addEventListener('click', function(e) {
-    if (formDirty && !confirm('Data yang Anda isi belum disimpan. Yakin ingin keluar?')) {
+    if (formDirty) {
         e.preventDefault();
+        window.showConfirm({
+            title: 'Batal Tambah',
+            message: 'Data yang Anda isi belum disimpan. Yakin ingin keluar?',
+            okLabel: 'Keluar',
+            type: 'warning',
+            icon: 'bi-exclamation-triangle-fill',
+            url: this.getAttribute('href')
+        });
     }
 });
 </script>

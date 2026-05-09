@@ -53,9 +53,9 @@
             <div class="card h-100">
                 <div class="card-header bg-danger text-white d-flex align-items-center gap-2">
                     <i class="bi bi-exclamation-triangle-fill"></i>
-                    <strong>Stok Hampir Habis (≤ 3)</strong>
+                    <strong>Stok Hampir Habis</strong>
                 </div>
-                <div class="card-body p-0">
+                <div class="card-body p-0 table-responsive">
                     <table class="table table-sm table-bordered mb-0">
                         <thead class="table-light">
                             <tr>
@@ -110,7 +110,7 @@
                     <i class="bi bi-clock-history"></i>
                     <strong>Transaksi Terbaru</strong>
                 </div>
-                <div class="card-body p-0">
+                <div class="card-body p-0 table-responsive">
                     <table class="table table-sm table-bordered mb-0">
                         <thead class="table-light">
                             <tr>
