@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
     // Routes KATEGORI & TRASH - hanya admin
     Route::middleware(['admin'])->group(function () {
         Route::get('/trash', [TrashController::class, 'index'])->name('trash.index');
-        Route::resource('categories', CategoryController::class)->except(['show']);
+        Route::resource('categories', CategoryController::class);
         Route::patch('categories/{id}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
         Route::delete('categories/{id}/force-delete', [CategoryController::class, 'forceDelete'])->name('categories.forceDelete');
     });

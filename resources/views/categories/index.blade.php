@@ -34,6 +34,7 @@
                     <span class='badge bg-success'>Aktif</span>
                 </td>
                 <td>
+                    <a href='{{ route("categories.show", $cat->id) }}' class='btn btn-sm btn-info text-white'>Lihat</a>
                     <a href='{{ route("categories.edit", $cat->id) }}' class='btn btn-sm btn-warning'>Edit</a>
                     {{-- SOFT DELETE --}}
                     <form method='POST' action='{{ route("categories.destroy", $cat->id) }}' class='d-inline'>

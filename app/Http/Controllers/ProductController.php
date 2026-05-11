@@ -35,6 +35,11 @@ class ProductController extends Controller {
         return view('products.create', compact('categories'));
     }
 
+    // SHOW: Tampilkan detail produk
+    public function show(Product $product) {
+        return view('products.show', compact('product'));
+    }
+
     // STORE: Simpan produk baru
     public function store(Request $request) {
         if (!auth()->user()->isAdmin()) abort(403, 'Akses ditolak.');

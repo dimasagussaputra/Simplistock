@@ -39,6 +39,7 @@
                     <span class='badge bg-success'>Aktif</span>
                 </td>
                 <td>
+                    <a href='{{ route("products.show", $p->id) }}' class='btn btn-sm btn-info text-white'>Lihat</a>
                     @if(auth()->user()->isAdmin())
                         <a href='{{ route("products.edit", $p->id) }}' class='btn btn-sm btn-warning'>Edit</a>
                         <form method='POST' action='{{ route("products.destroy", $p->id) }}' class='d-inline'>
